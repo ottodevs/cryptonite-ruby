@@ -5,7 +5,9 @@ require_relative 'kraken'
 require_relative 'bitmex'
 
 bitstamp = Bitstamp.new
-puts "Bitstamp:".green + " $#{bitstamp.price_usd} / #{bitstamp.price_eur}€"
+puts "Bitstamp:".green
+puts "$#{bitstamp.price_usd}"
+puts "#{bitstamp.price_eur}€"
 
 bitmex = Bitmex.new
 puts
@@ -17,4 +19,6 @@ puts "Ask : $#{bitmex.ask_price}"
 puts
 
 kraken = Kraken.new
-puts "ETH (Kraken):".green + " $#{kraken.price_usd} / #{kraken.price_eur}€"
+puts "ETH (Kraken):".green
+puts "$#{kraken.price_usd}"
+puts "#{kraken.price_eur}€"
