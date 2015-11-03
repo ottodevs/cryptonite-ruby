@@ -20,7 +20,7 @@ class Bitmex
 private
 
   def bid_ask
-    @bid_ask ||= conn.get('orderBook', { symbol: 'XBT', depth: 1 }).body[0]
+    @bid_ask ||= conn.get('orderBook', { symbol: 'XBT24H', depth: 1 }).body[0]
   end
 
   def conn

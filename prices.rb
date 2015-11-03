@@ -13,8 +13,8 @@ bitmex = Bitmex.new
 puts
 puts "Bitmex".green
 puts "Mark: $#{bitmex.mark_price}"
-puts "Bid : $#{bitmex.bid_price}"
-puts "Ask : $#{bitmex.ask_price}"
+puts "Bid XBT24H: $#{bitmex.bid_price}"
+puts "Ask XBT24H: $#{bitmex.ask_price}"
 
 puts
 
