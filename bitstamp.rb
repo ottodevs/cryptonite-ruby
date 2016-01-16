@@ -14,7 +14,7 @@ class Bitstamp
   end
 
   def price_eur
-    @price_eur ||= '%.2f' % (price_usd / eur_usd)
+    @price_eur ||= price_usd / eur_usd
   end
 
 private

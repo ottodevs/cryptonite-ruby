@@ -5,7 +5,7 @@
     bundle
     ./prices.rb
 
-![Screen](http://f.cl.ly/items/280X342M39442I0H1G2U/Image%202015-11-03%20at%205.19.15%20PM.png)
+![Screen](http://cl.ly/2T2V3o1m3z1o/Screen%20Shot%202016-01-17%20at%2003.18.56.png)
 
 You can also set up something like
 
