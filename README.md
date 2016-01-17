@@ -5,15 +5,15 @@
     bundle
     ./prices.rb
 
-![Screen](http://cl.ly/2T2V3o1m3z1o/Screen%20Shot%202016-01-17%20at%2003.18.56.png)
+![Screen](http://cl.ly/0O3m0r340s2p/Screen%20Shot%202016-01-17%20at%2003.28.16.png)
 
 You can also set up something like
 
     cd ~/bin
-    ~/bin$ ln -s ~/Projects/crypto-price-check/prices.rb prices
+    ~/bin$ ln -s ~/Projects/crypto-price-check/check.rb check
 
 and then just
 
-    prices
+    check
 
 from anywhere.
