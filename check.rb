@@ -7,6 +7,10 @@ require_relative 'bitmex'
 
 prices = Prices.new
 
+if File.exists?(File.join(File.dirname(__FILE__), '.debug'))
+  puts "DEBUG: #{prices.inspect}"
+end
+
 bitstamp = Bitstamp.new
 puts "Bitstamp:".green
 print "$#{bitstamp.price_usd}"
