@@ -1,0 +1,7 @@
+---
+
+crypto:
+  btc:
+    amount: 1
+  eth:
+    amount: 100
