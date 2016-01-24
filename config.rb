@@ -13,7 +13,8 @@ silence_warnings { Object.send(:remove_const, :Config) if Object.const_defined?(
 class Config
 
   def self.load
-    @@config ||= YAML.load_file File.join(File.dirname(__FILE__), 'config.yml')
+    config_file = File.join(File.dirname(__FILE__), 'config.yml')
+    @@config ||= File.exists?(config_file) ? YAML.load_file(config_file) : {}
   end
 
 end
