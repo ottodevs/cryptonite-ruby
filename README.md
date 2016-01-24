@@ -1,26 +1,18 @@
-# Check Bitcoin and Ethereum prices
+## Setup
 
-    git clone git@github.com:davidhq/crypto-price-check.git
-    cd crypto-price-check
+    git clone git@github.com:davidhq/crypto-portfolio.git
+    cd crypto-portfolio
     bundle
+
+## Check current prices.
+
     ruby check.rb
 
 ![Screen](http://cl.ly/0O3m0r340s2p/Screen%20Shot%202016-01-17%20at%2003.28.16.png)
 
-You can also set up something like
+## Add holdings
 
-    cd ~/bin
-    ~/bin$ ln -s ~/Projects/crypto-price-check/check.rb check
-
-and then just
-
-    check
-
-from anywhere.
-
-## More features
-
-### Portfolio
+  Add amount of your holdings and see your crypto net worth.
 
     cp config.yml.sample config.yml
 
