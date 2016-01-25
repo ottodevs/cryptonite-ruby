@@ -34,7 +34,6 @@ class Prices
           return " (-#{'%2.1f' % percentage_decrease}%)".red if (percentage_decrease * 10).round / 10 > 0
         end
       end
-      " (=)".green
     end
 
   private
