@@ -17,3 +17,9 @@
     cp config.yml.sample config.yml
 
     nano config.yml
+
+  And then run
+
+      ruby check.rb
+
+  again for a surprise!
