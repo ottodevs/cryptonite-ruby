@@ -5,3 +5,5 @@ crypto:
     amount: 1
   eth:
     amount: 100
+
+futures: false

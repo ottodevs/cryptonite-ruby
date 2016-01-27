@@ -6,89 +6,65 @@ require_relative 'bitmex'
 
 class Prices
 
-  class Persister
+  BTC = :btc
+  ETH = :eth
 
-    BTC = :btc
-    ETH = :eth
+  class Persister
 
     def initialize
       load
     end
 
-    def get(crypto)
-      @prices[crypto.to_s] && @prices[crypto.to_s].to_f
+    def get(token)
+      @prices[token.to_s] && @prices[token.to_s].to_f
     end
 
-    def set(crypto, price)
-      @prices[crypto.to_s] = price
+    def set(token, price)
+      @prices[token.to_s] = price
       save
-    end
-
-    def get_change(crypto, current_price)
-      if old_price = self.get(crypto) and old_price
-        if current_price > old_price
-          percentage_increase = 100 * (current_price - old_price) / old_price
-          return " (+#{'%2.1f' % percentage_increase}%)".green if (percentage_increase * 10).round / 10 > 0
-        elsif current_price < old_price
-          percentage_decrease = 100 * (old_price - current_price) / old_price
-          return " (-#{'%2.1f' % percentage_decrease}%)".red if (percentage_decrease * 10).round / 10 > 0
-        end
-      end
     end
 
   private
 
-    def file
-      File.join(File.dirname(__FILE__), 'prices.json')
-    end
+    FILE = File.join(File.dirname(__FILE__), 'prices.json')
 
     def save
-      File.open(file, 'w') { |f| f.puts(@prices.to_json) }
+      File.open(FILE, 'w') { |f| f.puts(@prices.to_json) }
     end
 
     def load
-      @prices ||= File.exists?(file) ? JSON.parse(File.read(file)) : {}
+      @prices ||= File.exists?(FILE) ? JSON.parse(File.read(FILE)) : {}
     end
 
   end
 
-  def prices
-    @persister ||= Persister.new
+  def get_change(token)
+    current_price = price(token)
+
+    if old_price = persister.get(token) and old_price
+      if current_price > old_price
+        percentage_increase = 100 * (current_price - old_price) / old_price
+        return " (+#{'%2.1f' % percentage_increase}%)".green if (percentage_increase * 10).round / 10 > 0
+      elsif current_price < old_price
+        percentage_decrease = 100 * (old_price - current_price) / old_price
+        return " (-#{'%2.1f' % percentage_decrease}%)".red if (percentage_decrease * 10).round / 10 > 0
+      end
+    end
+
+    persister.set(token, current_price)
   end
 
   def convert_usd_eur(usd)
     bitstamp.convert_usd_eur(usd)
   end
 
-  def btc_price
-    bitstamp.price_usd
-  end
-
-  def eth_price
-    kraken.price_usd
-  end
-
-  def show
-    puts "BTC".green
-    print "Bitstamp: $#{bitstamp.price_usd}"
-    print " #{'%.2f' % bitstamp.price_eur}€".yellow
-    puts prices.get_change(:btc, bitstamp.price_usd)
-    prices.set(:btc, bitstamp.price_usd)
-
-    # bitmex = Bitmex.new
-    # puts
-    # puts "Bitmex".green
-    # puts "Mark: $#{bitmex.mark_price}"
-    # puts "Bid XBT24H: $#{bitmex.bid_price}"
-    # puts "Ask XBT24H: $#{bitmex.ask_price}"
-
-    puts
-
-    puts "ETH".green
-    print "Kraken: $#{'%.2f' % kraken.price_usd}"
-    print " #{'%.2f' % kraken.price_eur}€".yellow
-    puts prices.get_change(:eth, kraken.price_usd)
-    prices.set(:eth, kraken.price_usd)
+  def price(token)
+    case(token)
+      when BTC
+        bitstamp.price_usd
+      when ETH
+        kraken.price_usd
+    end
   end
 
 private
@@ -99,6 +75,10 @@ private
 
   def kraken
     @kraken ||= Kraken.new
+  end
+
+  def persister
+    @persister ||= Persister.new
   end
 
 end

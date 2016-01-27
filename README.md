@@ -18,8 +18,4 @@
 
     nano config.yml
 
-  And then run
-
-      ruby check.rb
-
-  again for a surprise!
+    ruby check.rb
