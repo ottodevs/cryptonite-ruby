@@ -5,12 +5,15 @@ require_relative 'prices'
 require_relative 'portfolio'
 
 prices = Prices.new
+currencies = Config.load['currencies']
 
 # Show current prices and price changes
 
 puts "BTC".green
-print "Bitstamp: $#{prices.price(Prices::BTC).round}"
-print " #{prices.convert_usd_eur(prices.price(Prices::BTC)).round}€".yellow
+print "Bitstamp: "
+print "$#{prices.price(Prices::BTC).round}" if currencies.include?('usd') or !currencies
+print " #{prices.convert_usd_eur(prices.price(Prices::BTC)).round}€".yellow if currencies.include?('eur')
+print " #{prices.convert_usd_gbp(prices.price(Prices::BTC)).round}£".yellow if currencies.include?('gbp')
 puts prices.get_change(Prices::BTC)
 
 if Config.load['futures']
@@ -23,8 +26,10 @@ if Config.load['futures']
 end
 
 puts "\nETH".green
-print "Kraken: $#{'%.2f' % prices.price(Prices::ETH)}"
-print " #{'%.2f' % prices.convert_usd_eur(prices.price(Prices::ETH))}€".yellow
+print "Kraken: "
+print "$#{'%.2f' % prices.price(Prices::ETH)}" if currencies.include?('usd') or !currencies
+print " #{'%.2f' % prices.convert_usd_eur(prices.price(Prices::ETH))}€".yellow if currencies.include?('eur')
+print " #{'%.2f' % prices.convert_usd_gbp(prices.price(Prices::ETH))}£".yellow if currencies.include?('gbp')
 puts prices.get_change(Prices::ETH)
 
 # Show portfolio

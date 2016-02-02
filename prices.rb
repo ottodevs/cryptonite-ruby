@@ -1,6 +1,7 @@
 require 'colorize'
 require 'json'
 require_relative 'bitstamp'
+require_relative 'coinfloor'
 require_relative 'kraken'
 require_relative 'bitmex'
 
@@ -61,6 +62,10 @@ class Prices
     bitstamp.convert_usd_eur(usd)
   end
 
+  def convert_usd_gbp(usd)
+    coinfloor.convert_usd_gbp(usd)
+  end
+
   def price(token)
     case(token)
       when BTC
@@ -74,6 +79,10 @@ private
 
   def bitstamp
     @bitstamp ||= Bitstamp.new
+  end
+
+  def coinfloor
+    @coinfloor ||= Coinfloor.new
   end
 
   def kraken

@@ -19,3 +19,7 @@
     nano config.yml
 
     ruby check.rb
+
+## Specify currencies
+
+Default is *usd*, but you can list *usd*, *eur*, *gbp* in config.yml

@@ -6,4 +6,6 @@ crypto:
   eth:
     amount: 100
 
+currencies: usd, eur, gbp
+
 futures: false
