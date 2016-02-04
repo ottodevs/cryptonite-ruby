@@ -41,21 +41,21 @@ class Prices
 
   def get_change(token)
     current_price = price(token)
-    msg = nil
+    output = nil
 
     if old_price = persister.get(token) and old_price
       if current_price > old_price
         percentage_increase = 100 * (current_price - old_price) / old_price
-        msg = " (+#{'%2.1f' % percentage_increase}%)".green if (percentage_increase * 10).round / 10 > 0
+        output = " (+#{'%2.1f' % percentage_increase}%)".green if (percentage_increase * 10).round / 10 > 0
       elsif current_price < old_price
         percentage_decrease = 100 * (old_price - current_price) / old_price
-        msg = " (-#{'%2.1f' % percentage_decrease}%)".red if (percentage_decrease * 10).round / 10 > 0
+        output = " (-#{'%2.1f' % percentage_decrease}%)".red if (percentage_decrease * 10).round / 10 > 0
       end
     end
 
     persister.set(token, current_price)
 
-    msg
+    output
   end
 
   def convert_usd_eur(usd)

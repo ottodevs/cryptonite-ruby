@@ -8,8 +8,6 @@
 
     ruby check.rb
 
-![Screen](http://cl.ly/0O3m0r340s2p/Screen%20Shot%202016-01-17%20at%2003.28.16.png)
-
 ## Add holdings
 
   Add amount of your holdings and see your crypto net worth.
@@ -22,4 +20,9 @@
 
 ## Specify currencies
 
-Default is *usd*, but you can list *usd*, *eur*, *gbp* in config.yml
+Default is *usd*, but you can list *usd*, *eur*, *gbp* in config.yml - crypto prices will be listed in all of these and
+first one is used to show the aggregate portfolio value.
+
+## Example
+
+![Screen](http://cl.ly/3E0g2T0c3i2W/Screen%20Shot%202016-02-04%20at%2011.36.24.png)
