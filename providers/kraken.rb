@@ -1,5 +1,4 @@
-require 'faraday'
-require 'faraday_middleware'
+require_relative 'connection'
 
 class Kraken
 
@@ -9,9 +8,9 @@ class Kraken
     @price_usd ||= prices['XETHZUSD']['a'][0].to_f
   end
 
-  # def price_eur
-  #   @price_eur ||= prices['XETHZEUR']['a'][0].to_f
-  # end
+  def price_eur
+    @price_eur ||= prices['XETHZEUR']['a'][0].to_f
+  end
 
 private
 
@@ -20,10 +19,10 @@ private
   end
 
   def conn
-    @conn ||= Faraday.new(API_BASE) do |conn|
+    @conn ||= Connection.new(API_BASE) do |conn|
       conn.request :json
       conn.response :json, :content_type => /\bjson$/
-      conn.adapter Faraday.default_adapter
+      conn.adapter Connection.default_adapter
     end
   end
 

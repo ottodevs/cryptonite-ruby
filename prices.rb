@@ -1,14 +1,13 @@
 require 'colorize'
 require 'json'
-require_relative 'bitstamp'
-require_relative 'coinfloor'
-require_relative 'kraken'
-require_relative 'bitmex'
+require_relative 'currency'
+require_relative 'providers/bitstamp'
+require_relative 'providers/coinfloor'
+require_relative 'providers/krompir'
+require_relative 'providers/kraken'
+require_relative 'providers/bitmex'
 
 class Prices
-
-  BTC = :btc
-  ETH = :eth
 
   class Persister
 
@@ -58,20 +57,14 @@ class Prices
     output
   end
 
-  def convert_usd_eur(usd)
-    bitstamp.convert_usd_eur(usd)
-  end
-
-  def convert_usd_gbp(usd)
-    coinfloor.convert_usd_gbp(usd)
-  end
-
   def price(token)
     case(token)
-      when BTC
+      when Currency::BTC
         bitstamp.price_usd
-      when ETH
+      when Currency::ETH
         kraken.price_usd
+      when Currency::KRM
+        krompir.price_usd
     end
   end
 
@@ -83,6 +76,10 @@ private
 
   def coinfloor
     @coinfloor ||= Coinfloor.new
+  end
+
+  def krompir
+    @krompir ||= Krompir.new
   end
 
   def kraken

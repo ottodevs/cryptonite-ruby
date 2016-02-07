@@ -5,7 +5,10 @@ crypto:
     amount: 1
   eth:
     amount: 100
+  krm
+    amount: 1000
 
+# only fiat without fake connection
 currencies: usd, eur, gbp
 
 futures: false
