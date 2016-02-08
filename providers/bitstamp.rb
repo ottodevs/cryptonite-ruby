@@ -4,13 +4,12 @@ class Bitstamp
 
   API_BASE = "https://www.bitstamp.net/api/"
 
-  def price_usd
+  def btc_to_usd
     @price_usd ||= conn.get('ticker/').body['last'].to_f
   end
 
-  def to_eur(usd)
+  def eur_to_usd
     @ratio ||= conn.get('eur_usd/').body['buy'].to_f
-    usd / @ratio
   end
 
   # def price_eur

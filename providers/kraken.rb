@@ -4,7 +4,7 @@ class Kraken
 
   API_BASE = "https://api.kraken.com/0/public/"
 
-  def price_usd
+  def eth_to_usd
     @price_usd ||= prices['XETHZUSD']['a'][0].to_f
   end
 

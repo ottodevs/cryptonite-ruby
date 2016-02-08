@@ -4,8 +4,8 @@ class Coinfloor
 
   API_BASE = "https://webapi.coinfloor.co.uk:8090/bist/"
 
-  def to_gbp(usd)
-    usd * price_gbp / price_usd
+  def gbp_to_usd
+    price_usd / price_gbp
   end
 
 private

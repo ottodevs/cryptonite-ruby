@@ -25,11 +25,11 @@ private
   # all conversions to or from USD
   def conversions
     @conversions ||= {
-      [Currency::USD, Currency::EUR] => lambda { bitstamp.to_eur(1) },
-      [Currency::USD, Currency::GBP] => lambda { coinfloor.to_gbp(1) },
-      [Currency::BTC, Currency::USD] => lambda { bitstamp.price_usd },
-      [Currency::ETH, Currency::USD] => lambda { kraken.price_usd },
-      [Currency::KRM, Currency::USD] => lambda { krompir.price_usd }
+      [Currency::GBP, Currency::USD] => lambda { coinfloor.gbp_to_usd },
+      [Currency::EUR, Currency::USD] => lambda { bitstamp.eur_to_usd },
+      [Currency::BTC, Currency::USD] => lambda { bitstamp.btc_to_usd },
+      [Currency::ETH, Currency::USD] => lambda { kraken.eth_to_usd },
+      [Currency::KRM, Currency::USD] => lambda { krompir.krm_to_usd }
     }
   end
 

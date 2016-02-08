@@ -4,15 +4,14 @@ class Krompir
 
   API_BASE = "https://bitcells.com/api"
 
-  def price_usd
+  def krm_to_usd
     1
   end
 
 private
 
   def conn
-    @conn ||= FakeConnection.new(API_BASE) do |conn|
-    end
+    @conn ||= FakeConnection.new(API_BASE) { |conn| }
   end
 
 end
