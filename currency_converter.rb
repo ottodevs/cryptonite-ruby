@@ -1,36 +1,52 @@
+
+require_relative 'providers/bitstamp'
+require_relative 'providers/coinfloor'
+require_relative 'providers/krompir'
+require_relative 'providers/kraken'
+require_relative 'providers/bitmex'
 require_relative 'currency'
 
 class CurrencyConverter
 
-  def initialize(prices)
-    @prices = prices
-  end
-
-  def convert_usd_eur(usd)
-    convert(usd, Currency::USD, Currency::EUR, @prices)
-  end
-
-  def convert_usd_gbp(usd)
-    convert(usd, Currency::USD, Currency::GBP, @prices)
-  end
-
-  def convert_usd_krm(usd)
-    convert(usd, Currency::USD, Currency::KRM, @prices)
+  def ratio(from, to)
+    if from == to
+      1
+    elsif conv = conversions[[from, to]]
+      conv.call
+    elsif conv = conversions[[to, from]]
+      1 / conv.call
+    else
+      ratio(from, Currency::USD) / ratio(to, Currency::USD)
+    end
   end
 
 private
 
-  def convert(value, source, target, prices)
-    if source == Currency::USD
-      case target
-      when Currency::EUR
-        @prices.send(:bitstamp).convert_usd_eur(value)
-      when Currency::GBP
-        @prices.send(:coinfloor).convert_usd_gbp(value)
-      when Currency::KRM
-        @prices.send(:krompir).convert_usd_krm(value)
-      end
-    end
+  # all conversions to or from USD
+  def conversions
+    @conversions ||= {
+      [Currency::USD, Currency::EUR] => lambda { bitstamp.to_eur(1) },
+      [Currency::USD, Currency::GBP] => lambda { coinfloor.to_gbp(1) },
+      [Currency::BTC, Currency::USD] => lambda { bitstamp.price_usd },
+      [Currency::ETH, Currency::USD] => lambda { kraken.price_usd },
+      [Currency::KRM, Currency::USD] => lambda { krompir.price_usd }
+    }
+  end
+
+  def bitstamp
+    @bitstamp ||= Bitstamp.new
+  end
+
+  def coinfloor
+    @coinfloor ||= Coinfloor.new
+  end
+
+  def krompir
+    @krompir ||= Krompir.new
+  end
+
+  def kraken
+    @kraken ||= Kraken.new
   end
 
 end

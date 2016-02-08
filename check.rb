@@ -7,20 +7,20 @@ require_relative 'prices'
 require_relative 'portfolio'
 
 prices = Prices.new
-currency_converter = CurrencyConverter.new(prices)
+converter = CurrencyConverter.new
 
 # Show current prices and price changes
 
 puts "BTC".green
 print "Bitstamp: "
-price = prices.price(Currency::BTC).round
+price = converter.ratio(Currency::BTC, Currency::USD).round
 Currency.list.each_with_index do |currency, index|
   print " " unless index == 0
-  converted = Currency.convert_usd(price, currency_converter, currency).round
-  output = "#{Currency.format(converted, currency)}"
+  converted = price * converter.ratio(Currency::USD, currency)
+  output = "#{Currency.format(converted.round, currency)}"
   print index == 0 ? output.colorize(:yellow) : output
 end
-puts prices.get_change(Currency::BTC)
+puts prices.get_change(Currency::BTC, converter)
 
 if Config.load['futures']
   bitmex = Bitmex.new
@@ -33,15 +33,15 @@ end
 
 puts "\nETH".green
 print "Kraken: "
-price = prices.price(Currency::ETH)
+price = converter.ratio(Currency::ETH, Currency::USD)
 Currency.list.each_with_index do |currency, index|
   print " " unless index == 0
-  converted = '%.2f' % Currency.convert_usd(price, currency_converter, currency)
-  output = "#{Currency.format(converted, currency)}"
+  converted = price * converter.ratio(Currency::USD, currency)
+  output = Currency.format('%.2f' % converted, currency)
   print index == 0 ? output.colorize(:yellow) : output
 end
-puts prices.get_change(Currency::ETH)
+puts prices.get_change(Currency::ETH, converter)
 
 # Show portfolio
 
-Portfolio.new.show(prices, currency_converter)
+Portfolio.new.show(prices, converter)

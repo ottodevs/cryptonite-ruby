@@ -1,11 +1,6 @@
 require 'colorize'
 require 'json'
 require_relative 'currency'
-require_relative 'providers/bitstamp'
-require_relative 'providers/coinfloor'
-require_relative 'providers/krompir'
-require_relative 'providers/kraken'
-require_relative 'providers/bitmex'
 
 class Prices
 
@@ -38,8 +33,8 @@ class Prices
 
   end
 
-  def get_change(token)
-    current_price = price(token)
+  def get_change(token, converter)
+    current_price = converter.ratio(Currency::USD, token)
     output = nil
 
     if old_price = persister.get(token) and old_price
@@ -57,34 +52,7 @@ class Prices
     output
   end
 
-  def price(token)
-    case(token)
-      when Currency::BTC
-        bitstamp.price_usd
-      when Currency::ETH
-        kraken.price_usd
-      when Currency::KRM
-        krompir.price_usd
-    end
-  end
-
 private
-
-  def bitstamp
-    @bitstamp ||= Bitstamp.new
-  end
-
-  def coinfloor
-    @coinfloor ||= Coinfloor.new
-  end
-
-  def krompir
-    @krompir ||= Krompir.new
-  end
-
-  def kraken
-    @kraken ||= Kraken.new
-  end
 
   def persister
     @persister ||= Persister.new

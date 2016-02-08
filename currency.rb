@@ -9,21 +9,21 @@ class Currency
   EUR = :eur
   GBP = :gbp
 
-  def self.format(value, currency = default)
-    case currency
-    when USD then "$#{format_price(value)}"
-    when EUR then "#{format_price(value)}€"
-    when GBP then "#{format_price(value)}£"
-    when KRM then "#{format_price(value)}●"
-    end
+  def self.symbol(currency)
+    { BTC => { postfix: 'Ƀ' },
+      USD => { prefix: '$' },
+      KRM => { postfix: '🍠' },
+      ETH => { postfix: 'eth' },
+      EUR => { postfix: '€' },
+      GBP => { postfix: '£' }
+    }[currency]
   end
 
-  def self.convert_usd(value, currency_converter, target = default)
-    case target
-    when USD then value
-    when EUR then currency_converter.convert_usd_eur(value)
-    when GBP then currency_converter.convert_usd_gbp(value)
-    when KRM then currency_converter.convert_usd_krm(value)
+  def self.format(value, currency = default)
+    if self.symbol(currency)[:prefix]
+      "#{self.symbol(currency)[:prefix]}#{format_price(value)}"
+    else
+      "#{format_price(value)}#{self.symbol(currency)[:postfix]}"
     end
   end
 

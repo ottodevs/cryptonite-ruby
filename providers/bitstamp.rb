@@ -8,14 +8,14 @@ class Bitstamp
     @price_usd ||= conn.get('ticker/').body['last'].to_f
   end
 
-  def convert_usd_eur(usd)
+  def to_eur(usd)
     @ratio ||= conn.get('eur_usd/').body['buy'].to_f
     usd / @ratio
   end
 
-  def price_eur
-    @price_eur ||= convert_usd_eur(price_usd)
-  end
+  # def price_eur
+  #   @price_eur ||= convert_usd_eur(price_usd)
+  # end
 
 private
 

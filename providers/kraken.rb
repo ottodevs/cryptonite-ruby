@@ -8,9 +8,9 @@ class Kraken
     @price_usd ||= prices['XETHZUSD']['a'][0].to_f
   end
 
-  def price_eur
-    @price_eur ||= prices['XETHZEUR']['a'][0].to_f
-  end
+  # def price_eur
+  #   @price_eur ||= prices['XETHZEUR']['a'][0].to_f
+  # end
 
 private
 

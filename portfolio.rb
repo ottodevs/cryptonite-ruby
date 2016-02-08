@@ -2,24 +2,24 @@ require_relative 'config'
 
 class Portfolio
 
-  def show(prices, currency_converter)
+  def show(prices, converter)
     if config = Config.load['crypto']
 
       total = 0
       puts "\nTotal".green
 
       if btc = config['btc']
-        sum_btc = btc['amount'].to_f * Currency.convert_usd(prices.price(Currency::BTC), currency_converter)
+        sum_btc = btc['amount'].to_f * converter.ratio(Currency::BTC, Currency.default)
         total += sum_btc
       end
 
       if eth = config['eth']
-        sum_eth = eth['amount'].to_f * Currency.convert_usd(prices.price(Currency::ETH), currency_converter)
+        sum_eth = eth['amount'].to_f * converter.ratio(Currency::ETH, Currency.default)
         total += sum_eth
       end
 
       if krm = config['krm']
-        sum_krm = krm['amount'].to_f * Currency.convert_usd(prices.price(Currency::KRM), currency_converter)
+        sum_krm = krm['amount'].to_f * converter.ratio(Currency::KRM, Currency.default)
         total += sum_krm
       end
 

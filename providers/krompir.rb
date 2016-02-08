@@ -8,10 +8,6 @@ class Krompir
     1
   end
 
-  def convert_usd_krm(usd)
-    usd
-  end
-
 private
 
   def conn

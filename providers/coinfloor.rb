@@ -4,6 +4,12 @@ class Coinfloor
 
   API_BASE = "https://webapi.coinfloor.co.uk:8090/bist/"
 
+  def to_gbp(usd)
+    usd * price_gbp / price_usd
+  end
+
+private
+
   def price_usd
     @price_usd ||= conn.get('XBT/USD/ticker/').body['last'].to_f
   end
@@ -11,12 +17,6 @@ class Coinfloor
   def price_gbp
     @price_gbp ||= conn.get('XBT/GBP/ticker/').body['last'].to_f
   end
-
-  def convert_usd_gbp(usd)
-    usd * price_gbp / price_usd
-  end
-
-private
 
   def conn
     @conn ||= Connection.new(API_BASE) do |conn|
