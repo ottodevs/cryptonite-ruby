@@ -10,20 +10,20 @@ class Currency
   GBP = :gbp
 
   def self.symbol(currency)
-    { BTC => { postfix: 'Ƀ' },
-      USD => { prefix: '$' },
-      KRM => { postfix: '🍠' },
-      ETH => { postfix: 'eth' },
-      EUR => { postfix: '€' },
-      GBP => { postfix: '£' }
+    { BTC => { append: 'Ƀ' },
+      USD => { prepend: '$' },
+      KRM => { append: '🍠' },
+      ETH => { append: 'eth' },
+      EUR => { append: '€' },
+      GBP => { append: '£' }
     }[currency]
   end
 
   def self.format(value, currency = default)
-    if self.symbol(currency)[:prefix]
-      "#{self.symbol(currency)[:prefix]}#{format_price(value)}"
+    if self.symbol(currency)[:prepend]
+      "#{self.symbol(currency)[:prepend]}#{format_price(value)}"
     else
-      "#{format_price(value)}#{self.symbol(currency)[:postfix]}"
+      "#{format_price(value)}#{self.symbol(currency)[:append]}"
     end
   end
 

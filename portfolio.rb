@@ -8,25 +8,19 @@ class Portfolio
       total = 0
       puts "\nTotal".green
 
-      if btc = config['btc']
-        sum_btc = btc['amount'].to_f * converter.ratio(Currency::BTC, Currency.default)
-        total += sum_btc
-      end
+      sums = {}
 
-      if eth = config['eth']
-        sum_eth = eth['amount'].to_f * converter.ratio(Currency::ETH, Currency.default)
-        total += sum_eth
-      end
-
-      if krm = config['krm']
-        sum_krm = krm['amount'].to_f * converter.ratio(Currency::KRM, Currency.default)
-        total += sum_krm
+      for currency in config.keys
+        if cur = config[currency]
+          sums[currency] = cur['amount'].to_f * converter.ratio(currency.to_sym, Currency.default)
+          total += sums[currency]
+        end
       end
 
       if total > 0
-        puts "BTC: #{Currency.format(sum_btc.round)} (#{(100.0 * sum_btc / total).round}%)" if btc
-        puts "ETH: #{Currency.format(sum_eth.round)} (#{(100.0 * sum_eth / total).round}%)" if eth
-        puts "KRM: #{Currency.format(sum_krm.round)} (#{(100.0 * sum_krm / total).round}%)" if krm
+        for currency in config.keys
+          puts "#{currency.to_s.upcase}: #{Currency.format(sums[currency].round)} (#{(100.0 * sums[currency] / total).round}%)" if sums[currency]
+        end
         puts "Sum: #{Currency.format(total.round)}".yellow
       end
     end
