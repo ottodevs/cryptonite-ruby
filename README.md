@@ -34,3 +34,7 @@ first one is used to show the aggregate portfolio value.
 Setting `basis` (can be `usd` or `btc`) in `config.yml` indicates the basis currency for conversions.
 
 Basis currency just means *the intermmediate*, if needed.
+
+## Debugging
+
+    touch .debug

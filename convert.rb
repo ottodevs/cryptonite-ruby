@@ -13,10 +13,9 @@ amount = $1.to_f
 from = $2.to_sym
 to = $3.to_sym
 
-# DEBUG
-log "Amount: #{amount}"
-log "From: #{from}"
-log "To: #{to}"
+# log "Amount: #{amount}"
+# log "From: #{from}"
+# log "To: #{to}"
 
 converter = CurrencyConverter.new(Config.load["basis"] || Currency::USD)
 converted = amount * converter.ratio(from, to)

@@ -10,18 +10,19 @@ require_relative 'util'
 class CurrencyConverter
 
   def initialize(basis)
+    log "Initialized currency converter based on #{basis}"
     @basis = basis.to_sym
   end
 
   def ratio(from, to)
-    log_conversion(from: from, to: to, basis: @basis)
-
     if from == to
       1
     elsif conv = conversions[@basis][[from, to]]
-      conv.call
+      log "Converted #{from} to #{to} via #{conv[0].class}"
+      conv[1].call
     elsif conv = conversions[@basis][[to, from]]
-      1 / conv.call
+      log "Converted #{from} to #{to} via #{conv[0].class}"
+      1 / conv[1].call
     else
       ratio(from, @basis) * ratio(@basis, to)
     end
@@ -29,27 +30,23 @@ class CurrencyConverter
 
 private
 
-  def log_conversion(options = {})
-    log "Convert: #{options[:from]} to #{options[:to]}, basis: #{options[:basis]}"
-  end
-
   # conversions are per basis,
   # has to provide all conversions either from- or -to basis
   def conversions
     @conversions ||= {
       Currency::USD => { # all conversions to or from USD
-        [Currency::GBP, Currency::USD] => lambda { coinfloor.gbp_to_usd },
-        [Currency::EUR, Currency::USD] => lambda { bitstamp.eur_to_usd },
-        [Currency::BTC, Currency::USD] => lambda { bitstamp.btc_to_usd },
-        [Currency::ETH, Currency::USD] => lambda { kraken.eth_to_usd },
-        [Currency::KRM, Currency::USD] => lambda { krompir.krm_to_usd }
+        [Currency::GBP, Currency::USD] => [coinfloor, lambda { coinfloor.gbp_to_usd }],
+        [Currency::EUR, Currency::USD] => [bitstamp, lambda { bitstamp.eur_to_usd }],
+        [Currency::BTC, Currency::USD] => [bitstamp, lambda { bitstamp.btc_to_usd }],
+        [Currency::ETH, Currency::USD] => [kraken, lambda { kraken.eth_to_usd }],
+        [Currency::KRM, Currency::USD] => [krompir, lambda { krompir.krm_to_usd }]
       },
       Currency::BTC => { # all conversions to or from BTC
-        [Currency::BTC, Currency::GBP] => lambda { coinfloor.btc_to_gbp },
-        [Currency::BTC, Currency::EUR] => lambda { bitstamp.btc_to_eur },
-        [Currency::BTC, Currency::USD] => lambda { bitstamp.btc_to_usd },
-        [Currency::ETH, Currency::BTC] => lambda { kraken.eth_to_btc },
-        [Currency::KRM, Currency::BTC] => lambda { krompir.krm_to_btc }
+        [Currency::BTC, Currency::GBP] => [coinfloor, lambda { coinfloor.btc_to_gbp }],
+        [Currency::BTC, Currency::EUR] => [bitstamp, lambda { bitstamp.btc_to_eur }],
+        [Currency::BTC, Currency::USD] => [bitstamp, lambda { bitstamp.btc_to_usd }],
+        [Currency::ETH, Currency::BTC] => [kraken, lambda { kraken.eth_to_btc }],
+        [Currency::KRM, Currency::BTC] => [krompir, lambda { krompir.krm_to_btc }]
       }
     }
   end
