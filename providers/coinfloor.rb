@@ -8,6 +8,10 @@ class Coinfloor
     price_usd / price_gbp
   end
 
+  def btc_to_gbp
+    price_gbp
+  end
+
 private
 
   def price_usd

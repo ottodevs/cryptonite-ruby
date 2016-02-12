@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby
 require 'readline'
 require 'colorize'
+require_relative 'config'
 require_relative 'util'
+require_relative 'currency'
 require_relative 'currency_converter'
 
 input = ARGV[0] ? ARGV[0] : Readline.readline("Query (ex. 50 usd in btc): ", true)
@@ -16,6 +18,7 @@ log "Amount: #{amount}"
 log "From: #{from}"
 log "To: #{to}"
 
-converted = amount * CurrencyConverter.new.ratio(from, to)
+converter = CurrencyConverter.new(Config.load["basis"] || Currency::USD)
+converted = amount * converter.ratio(from, to)
 print "#{amount} #{from} = "
 puts "#{'%0.2f' % converted} #{to}".yellow

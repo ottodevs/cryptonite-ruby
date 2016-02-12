@@ -1,0 +1,25 @@
+require_relative 'connection'
+
+class Poloniex
+
+  API_BASE = "https://poloniex.com/public"
+
+  def eth_to_btc
+    @eth_to_btc ||= prices.body['bids'][0][0].to_f
+  end
+
+private
+
+  def prices
+    @prices ||= conn.get('?command=returnOrderBook', currencyPair: 'BTC_ETH')
+  end
+
+  def conn
+    @conn ||= Connection.new(API_BASE) do |conn|
+      conn.request :json
+      conn.response :json, :content_type => /\bjson$/
+      conn.adapter Connection.default_adapter
+    end
+  end
+
+end
