@@ -10,8 +10,8 @@ input = ARGV[0] ? ARGV[0] : Readline.readline("Query (ex. 50 usd in btc): ", tru
 input.strip.downcase =~ /([\d\.]+)\s*(.*?)\s+(?:(?:in|to)\s+)?(.*?)$/
 
 amount = $1.to_f
-from = $2.to_sym
-to = $3.to_sym
+from = $2
+to = $3
 
 # log "Amount: #{amount}"
 # log "From: #{from}"

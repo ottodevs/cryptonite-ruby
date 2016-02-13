@@ -27,9 +27,13 @@ first one is used to show the aggregate portfolio value.
 
 ## Currency converter
 
+Can convert **any fiat currency** plus `btc` and `eth`.
+
     ruby convert.rb "100 usd in btc"
 
     ruby convert.rb "300 eur in eth"
+
+    ruby convert.rb "500 cny in eur"
 
 Setting `basis` (can be `usd` or `btc`) in `config.yml` indicates the basis currency for conversions.
 
