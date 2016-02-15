@@ -11,25 +11,21 @@
     cd cryptonite-ruby
     bundle
 
-## Check current prices for Bitcoin and Ethereum
+## Check current value of Bitcoin and Ether
 
     ruby check.rb
 
-## Add crypto portfolio holdings (BTC and ETH)
+## Add crypto portfolio holdings
 
     cp config.yml.sample config.yml
 
     nano config.yml
 
+  and see your crypto net worth:
+
     ruby check.rb
 
-  and see your crypto net worth.
-
-## Specify currencies for crypto (BTC and ETH) price check
-
-Default is `usd`, but you can list `usd`, `eur` or `gbp` in config.yml.
-
-Crypto prices will be listed in all of these and
+Crypto prices will be shown in all fiat currencies listed in `currencies` section of `config.yml`, ex.: `usd, eur, hrk, gbp` and the
 first one is used to show the aggregate portfolio value.
 
 ## Currency converter
@@ -42,9 +38,7 @@ Can convert **any fiat currency** plus `btc` and `eth`.
 
     ruby convert.rb "500 cny in eur"
 
-Setting `basis` (can be `usd` or `btc`) in `config.yml` indicates the basis currency for conversions.
-
-Basis currency just means *the intermmediate*, if needed.
+Setting `basis` (can be `usd` or `btc`) in `config.yml` indicates the basis currency for conversions. By basis currency we mean *the intermmediate* if no direct conversion is possible.
 
 ## Debugging
 

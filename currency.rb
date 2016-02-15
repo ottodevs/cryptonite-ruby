@@ -20,10 +20,14 @@ class Currency
   end
 
   def self.format(value, currency = default)
-    if self.symbol(currency)[:prepend]
-      "#{self.symbol(currency)[:prepend]}#{format_price(value)}"
+    if cur = self.symbol(currency)
+      if cur[:prepend]
+        "#{cur[:prepend]}#{format_price(value)}"
+      else
+        "#{format_price(value)}#{cur[:append]}"
+      end
     else
-      "#{format_price(value)}#{self.symbol(currency)[:append]}"
+      "#{format_price(value)} #{currency}"
     end
   end
 
