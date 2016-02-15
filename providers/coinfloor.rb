@@ -1,4 +1,4 @@
-require_relative 'lib/provider'
+require_relative 'lib/connection'
 
 class Coinfloor
 
@@ -23,7 +23,7 @@ private
   end
 
   def conn
-    Provider.connection(self, API_BASE)
+    @conn ||= Connection.create(API_BASE)
   end
 
 end

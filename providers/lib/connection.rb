@@ -1,10 +1,16 @@
 require 'faraday'
 require 'faraday_middleware'
+require_relative 'cache'
 require_relative '../../util'
 
 class Connection
 
   TIMEOUT = 5
+
+  def self.create(api_base)
+    @@cache ||= Cache.new
+    Connection.new(api_base, @@cache) { |conn| }
+  end
 
   def initialize(api_base, cache, &block)
     @api_base = api_base

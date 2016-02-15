@@ -1,4 +1,4 @@
-require_relative 'lib/provider'
+require_relative 'lib/connection'
 
 class Bitstamp
 
@@ -19,7 +19,7 @@ class Bitstamp
 private
 
   def conn
-    Provider.connection(self, API_BASE)
+    @conn ||= Connection.create(API_BASE)
   end
 
 end
