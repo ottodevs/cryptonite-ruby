@@ -25,7 +25,8 @@ class CurrencyConverter
     elsif conv = conversions[@basis][[to, from]]
       log "Converted #{from} to #{to} via #{conv[0].class}"
       1 / conv[1].call
-    elsif ratio = coinbase.convert(from, to)
+    elsif ![from, to].include?(Currency::ETH) and ratio = coinbase.convert(from, to)
+      # Coinbase supports all conversions between Fiat and BTC, but no ETH
       log "Converted #{from} to #{to} via Coinbase"
       ratio
     else
