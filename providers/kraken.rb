@@ -1,4 +1,4 @@
-require_relative 'provider'
+require_relative 'lib/provider'
 
 class Kraken
 
@@ -20,11 +20,11 @@ private
 
   def prices
     #return conn.get('Ticker', pair: 'ETHEUR, ETHUSD, ETHGBP, ETHXBT').body['result']
-    @prices ||= conn.get('Ticker', pair: 'ETHEUR, ETHUSD, ETHGBP, ETHXBT').body['result']
+    @prices ||= conn.get('Ticker', pair: 'ETHEUR, ETHUSD, ETHGBP, ETHXBT')['result']
   end
 
   def conn
-    @conn ||= Provider.new(API_BASE).conn
+    Provider.connection(self, API_BASE)
   end
 
 end

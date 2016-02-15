@@ -1,4 +1,5 @@
 require 'colorize'
+require 'timeout'
 
 DEBUG = File.exists?(File.join(File.dirname(__FILE__), '.debug'))
 
@@ -17,6 +18,20 @@ class Util
     result = block.call
     $VERBOSE = warn_level
     result
+  end
+
+  def self.timeout(time, &block)
+    Timeout::timeout(time) do
+      block.call
+    end
+  rescue Timeout::Error
+    false
+  end
+
+  def self.no_errors(&block)
+    block.call
+  rescue
+    false
   end
 
 end

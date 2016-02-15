@@ -1,21 +1,21 @@
-require_relative 'provider'
+require_relative 'lib/provider'
 
 class Poloniex
 
   API_BASE = "https://poloniex.com/public"
 
   def eth_to_btc
-    @eth_to_btc ||= prices.body['bids'][0][0].to_f
+    prices['bids'][0][0].to_f
   end
 
 private
 
   def prices
-    @prices ||= conn.get('?command=returnOrderBook', currencyPair: 'BTC_ETH')
+    @prices_btc_eth ||= conn.get('?command=returnOrderBook', currencyPair: 'BTC_ETH') #reverse terminology
   end
 
   def conn
-    @conn ||= Provider.new(API_BASE).conn
+    Provider.connection(self, API_BASE)
   end
 
 end

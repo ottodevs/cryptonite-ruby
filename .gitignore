@@ -1,4 +1,5 @@
 .debug
 config.yml
+cache.json
 prices.json
 todo.txt

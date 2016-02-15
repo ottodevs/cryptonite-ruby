@@ -1,3 +1,10 @@
+## Features
+
+  - convert between any two fiat currencies
+  - convert between bitcoin, ether and any fiat currency
+  - check total crypto net worth (portfolio)
+  - works offline with most recent data in case of no connection
+
 ## Setup
 
     git clone git@github.com:davidhq/cryptonite-ruby.git

@@ -1,11 +1,11 @@
-require_relative 'provider'
+require_relative 'lib/provider'
 
 class Bitmex
 
   API_BASE = "https://www.bitmex.com/api/v1/"
 
   def mark_price
-    @mark_price ||= conn.get('instrument/indices').body[0]['markPrice']
+    @mark_price ||= conn.get('instrument/indices')[0]['markPrice']
   end
 
   def bid_price
@@ -19,11 +19,11 @@ class Bitmex
 private
 
   def bid_ask
-    @bid_ask ||= conn.get('orderBook', { symbol: 'XBT24H', depth: 1 }).body[0]
+    @bid_ask ||= conn.get('orderBook', { symbol: 'XBT24H', depth: 1 })[0]
   end
 
   def conn
-    @conn ||= Provider.new(API_BASE).conn
+    Provider.connection(self, API_BASE)
   end
 
 end

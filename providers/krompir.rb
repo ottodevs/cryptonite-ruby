@@ -1,4 +1,4 @@
-require_relative 'connection'
+require_relative 'lib/connection'
 
 class Krompir
 
