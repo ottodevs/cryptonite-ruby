@@ -2,4 +2,6 @@
 config.yml
 cache.json
 prices.json
+swap
+config.yml.other
 todo.txt

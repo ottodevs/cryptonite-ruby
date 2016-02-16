@@ -9,7 +9,12 @@ class Connection
 
   def self.create(api_base)
     @@cache ||= Cache.new
+    @@cache_used = false
     Connection.new(api_base, @@cache) { |conn| }
+  end
+
+  def self.cache_used
+    @@cache_used
   end
 
   def initialize(api_base, cache, &block)
@@ -36,6 +41,7 @@ class Connection
       @cache.set(key, result)
       result
     elsif hit
+      @@cache_used = true
       hit
     else
       raise "Error: No connection or cache for #{key}, sorry..."

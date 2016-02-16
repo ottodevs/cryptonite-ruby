@@ -5,6 +5,7 @@ require_relative 'currency'
 require_relative 'currency_converter'
 require_relative 'prices'
 require_relative 'portfolio'
+require_relative 'providers/lib/connection'
 require_relative 'providers/bitmex'
 
 prices = Prices.new
@@ -47,3 +48,5 @@ puts prices.get_change(Currency::ETH, converter)
 # Show portfolio
 
 Portfolio.new.show(prices, converter)
+
+puts "\nWarning: Used cache".red if Connection.cache_used

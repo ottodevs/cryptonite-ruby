@@ -21,3 +21,5 @@ converter = CurrencyConverter.new(Config.load["basis"] || Currency::USD)
 converted = amount * converter.ratio(from, to)
 print "#{amount} #{from} = "
 puts "#{'%0.2f' % converted} #{to}".yellow
+
+puts "\nWarning: Used cache".red if Connection.cache_used
