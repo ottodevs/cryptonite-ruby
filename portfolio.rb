@@ -11,8 +11,8 @@ class Portfolio
       sums = {}
 
       for currency in config.keys
-        if cur = config[currency]
-          sums[currency] = cur['amount'].to_f * converter.ratio(currency.to_sym, Currency.default, Config.load['exchanges'])
+        if amount = config[currency]
+          sums[currency] = amount.to_f * converter.ratio(currency.to_sym, Currency.default, Config.load['exchanges'])
           total += sums[currency]
         end
       end

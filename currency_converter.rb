@@ -46,11 +46,11 @@ private
   def conversions(exchanges)
     @conversions ||= {
       Currency::USD => { # all conversions to or from USD
-        [Currency::BTC, Currency::USD] => [exchanges[:btc], lambda { exchanges[:btc].btc_to_usd }],
+        #[Currency::BTC, Currency::USD] => [exchanges[:btc], lambda { exchanges[:btc].btc_to_usd }],
         [Currency::ETH, Currency::USD] => [exchanges[:eth], lambda { exchanges[:eth].eth_to_usd }]
       },
       Currency::BTC => { # all conversions to or from BTC
-        [Currency::BTC, Currency::USD] => [exchanges[:btc], lambda { exchanges[:btc].btc_to_usd }],
+        #[Currency::BTC, Currency::USD] => [exchanges[:btc], lambda { exchanges[:btc].btc_to_usd }],
         [Currency::ETH, Currency::BTC] => [exchanges[:eth], lambda { exchanges[:eth].eth_to_btc }]
       }
     }

@@ -28,7 +28,7 @@ Currency.list.each_with_index do |currency, index|
 end
 puts prices.get_change(Currency::BTC, converter, exchanges)
 
-if Config.load['futures']
+if Config.load['futures'] && Config.load['futures'] =~ /\bbtc\b/
   bitmex = Bitmex.new
   puts
   puts "Bitmex".green

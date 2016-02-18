@@ -1,0 +1,8 @@
+{
+  "crypto": {
+    "btc": 1,
+    "eth": 100
+  },
+
+  "currencies": "usd, eur, gbp"
+}

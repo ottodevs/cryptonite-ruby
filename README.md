@@ -17,15 +17,15 @@
 
 ## Add crypto portfolio holdings
 
-    cp config.yml.sample config.yml
+    cp config.json.sample config.json
 
-    nano config.yml
+    nano config.json
 
   and see your crypto net worth:
 
     ruby check.rb
 
-Crypto prices will be shown in all fiat currencies listed in `currencies` section of `config.yml`, ex.: `usd, eur, hrk, gbp` and the
+Crypto prices will be shown in all fiat currencies listed in `currencies` section of `config.json`, ex.: `usd, eur, hrk, gbp` and the
 first one is used to show the aggregate portfolio value.
 
 ## Currency converter
@@ -37,8 +37,6 @@ Can convert **any fiat currency** plus `btc` and `eth`.
     ruby convert.rb "300 eur in eth"
 
     ruby convert.rb "500 cny in eur"
-
-Setting `basis` (can be `usd` or `btc`) in `config.yml` indicates the basis currency for conversions. By basis currency we mean *the intermmediate* if no direct conversion is possible.
 
 ## Debugging
 
