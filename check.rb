@@ -15,7 +15,6 @@ converter = CurrencyConverter.new(basis)
 # Show current prices and price changes
 
 puts "BTC".green
-print "Bitstamp: "
 price = converter.ratio(Currency::BTC, Currency::USD).round
 Currency.list.each_with_index do |currency, index|
   print " " unless index == 0
@@ -35,7 +34,6 @@ if Config.load['futures']
 end
 
 puts "\nETH".green
-print "Kraken: "
 price = converter.ratio(Currency::ETH, Currency::USD)
 Currency.list.each_with_index do |currency, index|
   print " " unless index == 0

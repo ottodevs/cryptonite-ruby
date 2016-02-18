@@ -25,6 +25,7 @@ class Connection
     @conn.request :json
     @conn.response :json, :content_type => /\bjson$/
     @conn.adapter Connection.default_adapter
+    #@conn.response :logger
   end
 
   def self.default_adapter

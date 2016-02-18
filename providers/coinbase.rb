@@ -5,7 +5,7 @@ class Coinbase
   API_BASE = "https://api.coinbase.com/v2/"
 
   def btc_to_usd
-    @price_usd ||= conn.get('prices/buy/')['data']['amount']
+    @price_usd ||= conn.get('prices/buy/')['data']['amount'].to_f
   end
 
   # converts Fiat / BTC to all other fiat currencies (or BTC) like CNY, AUD, BGN

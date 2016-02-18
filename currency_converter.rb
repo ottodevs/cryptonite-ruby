@@ -1,7 +1,5 @@
 require_relative 'providers/coinbase'
-require_relative 'providers/bitstamp'
 require_relative 'providers/kraken'
-require_relative 'providers/coinfloor'
 require_relative 'providers/poloniex'
 require_relative 'currency'
 require_relative 'util'
@@ -42,13 +40,11 @@ private
   def conversions
     @conversions ||= {
       Currency::USD => { # all conversions to or from USD
-        [Currency::BTC, Currency::USD] => [bitstamp, lambda { bitstamp.btc_to_usd }],
-        [Currency::EUR, Currency::USD] => [bitstamp, lambda { bitstamp.eur_to_usd }],
+        [Currency::BTC, Currency::USD] => [coinbase, lambda { coinbase.btc_to_usd }],
         [Currency::ETH, Currency::USD] => [kraken, lambda { kraken.eth_to_usd }]
       },
       Currency::BTC => { # all conversions to or from BTC
-        [Currency::BTC, Currency::EUR] => [bitstamp, lambda { bitstamp.btc_to_eur }],
-        [Currency::BTC, Currency::USD] => [bitstamp, lambda { bitstamp.btc_to_usd }],
+        [Currency::BTC, Currency::USD] => [coinbase, lambda { coinbase.btc_to_usd }],
         [Currency::ETH, Currency::BTC] => [kraken, lambda { kraken.eth_to_btc }]
       }
     }
@@ -56,18 +52,6 @@ private
 
   def coinbase
     @coinbase ||= Coinbase.new
-  end
-
-  def bitstamp
-    @bitstamp ||= Bitstamp.new
-  end
-
-  def coinfloor
-    @coinfloor ||= Coinfloor.new
-  end
-
-  def krompir
-    @krompir ||= Krompir.new
   end
 
   def kraken

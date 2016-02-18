@@ -4,7 +4,6 @@ class Currency
 
   BTC = :btc
   USD = :usd
-  KRM = :krm
   ETH = :eth
   EUR = :eur
   GBP = :gbp
@@ -12,7 +11,6 @@ class Currency
   def self.symbol(currency)
     { BTC => { append: 'Ƀ' },
       USD => { prepend: '$' },
-      KRM => { append: '🍠' },
       ETH => { append: 'eth' },
       EUR => { append: '€' },
       GBP => { append: '£' }
