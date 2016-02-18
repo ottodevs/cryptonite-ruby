@@ -20,6 +20,10 @@ class Util
     result
   end
 
+  def self.symbolize_keys(hash)
+    hash.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+  end
+
   def self.timeout(time, &block)
     Timeout::timeout(time) do
       block.call

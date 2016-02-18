@@ -10,6 +10,15 @@ crypto:
 currencies: usd, eur, gbp
 
 # basis for conversions, can be usd or btc
+# default (can delete):
 basis: usd
 
+# default (can delete):
 futures: false
+
+# default (can delete):
+# btc other option: bitstamp
+# eth other option: poloniex (doesn't work yet)
+exchanges:
+  btc: coinbase
+  eth: kraken

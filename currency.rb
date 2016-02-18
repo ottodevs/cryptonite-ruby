@@ -1,4 +1,6 @@
 require_relative 'config'
+require_relative 'providers/coinbase'
+require_relative 'providers/kraken'
 
 class Currency
 
@@ -7,6 +9,11 @@ class Currency
   ETH = :eth
   EUR = :eur
   GBP = :gbp
+
+  DEFAULT_EXCHANGES = {
+    btc: Coinbase.new,
+    eth: Kraken.new
+  }
 
   def self.symbol(currency)
     { BTC => { append: 'Ƀ' },

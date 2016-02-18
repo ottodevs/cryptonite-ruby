@@ -33,8 +33,8 @@ class Prices
 
   end
 
-  def get_change(token, converter)
-    current_price = converter.ratio(token, Currency::USD)
+  def get_change(token, converter, exchanges)
+    current_price = converter.ratio(token, Currency::USD, exchanges)
     output = nil
 
     if old_price = persister.get(token) and old_price

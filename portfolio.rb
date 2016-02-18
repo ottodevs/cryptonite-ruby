@@ -12,7 +12,7 @@ class Portfolio
 
       for currency in config.keys
         if cur = config[currency]
-          sums[currency] = cur['amount'].to_f * converter.ratio(currency.to_sym, Currency.default)
+          sums[currency] = cur['amount'].to_f * converter.ratio(currency.to_sym, Currency.default, Config.load['exchanges'])
           total += sums[currency]
         end
       end

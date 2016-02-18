@@ -17,8 +17,9 @@ to = $3
 # log "From: #{from}"
 # log "To: #{to}"
 
+exchanges = Config.load['exchanges'] || Currency::DEFAULT_EXCHANGES
 converter = CurrencyConverter.new(Config.load["basis"] || Currency::USD)
-converted = amount * converter.ratio(from, to)
+converted = amount * converter.ratio(from, to, exchanges)
 print "#{amount} #{from} = "
 puts "#{'%0.2f' % converted} #{to}".yellow
 
