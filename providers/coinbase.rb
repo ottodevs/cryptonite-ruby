@@ -12,8 +12,8 @@ class Coinbase
   def convert(from, to)
     @cache ||= {}
     @cache[from] ||= conn.get('exchange-rates', currency: from.to_s.upcase)['data']
-    if @cache[from] and rate = @cache[from]['rates'].find { |rate| rate[0].upcase == to.to_s.upcase }
-      rate[1].to_f
+    if @cache[from] and rate = @cache[from]['rates'][to.to_s.upcase]
+      rate.to_f
     end
   end
 
