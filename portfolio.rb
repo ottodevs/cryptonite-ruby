@@ -11,7 +11,7 @@ class Portfolio
       sums = {}
 
       for currency in config.keys
-        if amount = config[currency]
+        if amount = config[currency] and %w(btc eth).include?(currency)
           sums[currency] = amount.to_f * converter.ratio(currency.to_sym, Currency.default, Config.load['exchanges'])
           total += sums[currency]
         end

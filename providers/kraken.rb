@@ -13,7 +13,7 @@ class Kraken
   end
 
   def eth_to_eur
-    @eth_to_usd ||= prices['XETHZUSD']['b'][0].to_f
+    @eth_to_eur ||= prices['XETHZEUR']['b'][0].to_f
   end
 
 private
